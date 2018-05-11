@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	<title>randomCircles</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.js"></script>
+	<link rel="stylesheet" type="text/css" href="random.css">
+	<!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" canvas="myCanvas">
+
+
+     
+var circles = [];
+var destinationPaths = [];
+var destination = Point.random() * view.size;
+
+// Create a centered circle at the center of the view:
+for ( i=0; i<100; i++ ){
+var circle = new Path.Circle({
+	center: Point.random() * view.size,
+	radius: 10,
+	fillColor: randomColor()
+});
+   circles.push(circle);
+   destinationPaths.push(destination); 
+}
+
+
+   // Define a random point in the view, which we will be moving
+   // the circle item towards.
+   // var destination = Point.random() * view.size;
+function onFrame(event) {
+	for ( i=0; i<circles.length; i++ ){
+	// Each frame, move the path 1/30th of the difference in position
+	// between it and the destination.
+	circles[i].fillColor.hue += 10;
+	// The vector is the difference between the position of
+	// the circle item and the destination point:
+	var vector = destinationPaths[i] - circles[i].position;
+	// We add 1/30th of the vector to the position property
+	// of the circle item, to move it in the direction of the
+	// destination point:
+	circles[i].position += vector / 30;
+	
+	// If the distance between the path and the destination is less
+	// than 5, we define a new random point in the view to move the
+	// path to:
+	if (vector.length < 5) {
+		destinationPaths[i] = Point.random() * view.size;
+	}
+ }
+}
+
+function randomColor(){
+	// pick a red from 0 - 255
+	var r = Math.floor(Math.random() * 256);
+	// pick a green from 0 - 255
+	var g = Math.floor(Math.random() * 256);
+	// pick a blue from 0 - 255
+	var b = Math.floor(Math.random() * 256);
+	// return rgb
+	return "rgb" + "(" + r + ", " + g + ", " + b + ")";
+}
+
+
+    </script>
+
+</head>
+<body>
+<canvas id="myCanvas" resize=""></canvas>
+</body>
+</html>
+</head>
+<body>
+
+</body>
+</html>

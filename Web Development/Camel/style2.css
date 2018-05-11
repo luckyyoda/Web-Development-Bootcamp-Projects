@@ -1,0 +1,12 @@
+h2 {
+	color: blue;
+}
+
+.boxmodel {
+	border: 5px solic red;
+	display: inline-block;
+	padding: 5px 20px;
+}
+span {
+	font-size: 2em;
+}
